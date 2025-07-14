@@ -19,3 +19,7 @@
 .hover {
     background-color: aqua;
 }
+
+input {
+    width: 250px;
+}
