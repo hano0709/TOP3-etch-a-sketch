@@ -12,8 +12,26 @@ function createGrid(n) {
         box.style.width = `${size/n}px`;
         box.style.height = `${size/n}px`;
         box.classList.add('box');
+
+        box.dataset.opacity = 0;
+        box.dataset.colorSet = 0;
+
         box.addEventListener('mouseenter', () => {
-            box.classList.add('hover');
+            if(box.dataset.colorSet == 0){
+                const r = Math.floor(Math.random() *256);
+                const g = Math.floor(Math.random() *256);
+                const b = Math.floor(Math.random() *256);
+                box.style.backgroundColor = `rgb(${r},${g},${b})`;
+                box.dataset.colorSet = 1;
+            }
+
+            let opacity = parseFloat(box.dataset.opacity);
+            console.log(opacity);
+            if(opacity < 1){
+                opacity = opacity + 0.1;
+                box.dataset.opacity = opacity;
+                box.style.opacity = opacity;
+            }
         })
         container.appendChild(box);
     }
@@ -23,7 +41,9 @@ const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', () => {
     const boxes = document.querySelectorAll('.box');
     boxes.forEach(box => {
-        box.classList.remove('hover');
+        box.style.backgroundColor = '';
+        box.style.opacity = '';
+        box.dataset.colorSet = 0
     })
 })
 
